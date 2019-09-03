@@ -13,3 +13,8 @@ Para actualizar cambios locales:
 ````
 git pull
 ````
+
+Otros:
+````
+Como preparar VScode para Java: https://www.youtube.com/watch?v=bKwcFo62cnI
+````
