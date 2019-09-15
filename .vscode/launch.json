@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Hola",
+            "request": "launch",
+            "mainClass": "Hola",
+            "projectName": "lab1chat_c5bd9803"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "Chat.Main",
+            "projectName": "lab1chat_c5bd9803"
+        }
+    ]
+}
