@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
 
@@ -60,6 +61,9 @@ class LaminaMarcoCliente extends JPanel{
 		public void actionPerformed(ActionEvent e){
 			try{
 				Socket misocket = new Socket("192.168.0.3",9999);
+				DataOutputStream flujo_salida = new DataOutputStream(misocket.getOutputStream());
+				flujo_salida.writeUTF(campo1.getText());
+				flujo_salida.close();
 			} catch (UnknownHostException e1){
 				e1.printStackTrace();
 			} catch (IOException e1){
