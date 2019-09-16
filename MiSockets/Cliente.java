@@ -1,5 +1,7 @@
 import javax.swing.*;
-
+import java.awt.event.*;
+import java.io.IOException;
+import java.net.*;
 
 public class Cliente {
 
@@ -43,13 +45,29 @@ class LaminaMarcoCliente extends JPanel{
 		add(campo1);		
 	
 		miboton=new JButton("Enviar");
+
+		EnviaTexto mievento = new EnviaTexto();
+
+		miboton.addActionListener(mievento);
 		
 		add(miboton);	
 		
 	}
 	
 	
-	
+	private class EnviaTexto implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e){
+			try{
+				Socket misocket = new Socket("192.168.0.3",9999);
+			} catch (UnknownHostException e1){
+				e1.printStackTrace();
+			} catch (IOException e1){
+				System.out.println(e1.getMessage());
+			}
+			// System.out.println(campo1.getText());
+		}
+	}
 		
 		
 		
