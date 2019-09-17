@@ -3,6 +3,7 @@ package misockets;
 import javax.swing.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.*;
@@ -41,7 +42,7 @@ class MarcoCliente extends JFrame{
 	
 }
 
-class LaminaMarcoCliente extends JPanel{
+class LaminaMarcoCliente extends JPanel implements Runnable{
 	
 	/**
 	 *
@@ -77,6 +78,10 @@ class LaminaMarcoCliente extends JPanel{
 		miboton.addActionListener(mievento);
 		
 		add(miboton);	
+
+		Thread mihilo=new Thread(this);
+
+		mihilo.start();
 		
 	}
 	
@@ -119,6 +124,36 @@ class LaminaMarcoCliente extends JPanel{
 	private JTextArea campochat;
 
 	private JButton miboton;
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+
+		try{
+
+			ServerSocket servidor_cliente=new ServerSocket(9090);
+
+			Socket cliente;
+
+			PaqueteEnvio paqueteRecibido;
+
+			while(true){
+
+				cliente=servidor_cliente.accept();
+
+				ObjectInputStream flujoentrada=new ObjectInputStream(cliente.getInputStream());
+
+				paqueteRecibido= (PaqueteEnvio) flujoentrada.readObject();
+
+				campochat.append("\n" + paqueteRecibido.getNick() +": " + paqueteRecibido.getMensaje());
+
+			}
+
+		}catch(Exception e){
+			
+			System.out.println(e.getMessage());
+		}
+	}
 	
 }
 
