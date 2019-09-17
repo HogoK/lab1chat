@@ -1,3 +1,5 @@
+package misockets;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -15,7 +17,12 @@ public class Servidor  {
 
 class MarcoServidor extends JFrame implements Runnable {
 	
-	public MarcoServidor(){
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public MarcoServidor() {
 		
 		setBounds(1200,300,280,350);				
 			
@@ -39,20 +46,38 @@ class MarcoServidor extends JFrame implements Runnable {
 	
 	private	JTextArea areatexto;
 	@Override
+
+
+
 	public void run(){
 		// System.out.println("Prueba qla buena");
 		try{
 			ServerSocket servidor = new ServerSocket(9999);
+
+			String nick, ip, mensaje;
+
+			PaqueteEnvio paquete_recibido;
+
 			while(true){
 				Socket misocket = servidor.accept();
-			    DataInputStream flujo_entrada = new DataInputStream(misocket.getInputStream());
-			    String mensaje_texto = flujo_entrada.readUTF();
-			    areatexto.append("\n" + mensaje_texto);
+
+			    // DataInputStream flujo_entrada = new DataInputStream(misocket.getInputStream());
+				ObjectInputStream paquete_datos=new ObjectInputStream(misocket.getInputStream());		
+				// String mensaje_texto = flujo_entrada.readUTF();
+				paquete_recibido=(PaqueteEnvio) paquete_datos.readObject();
+				// areatexto.append("\n" + mensaje_texto);
+				nick=paquete_recibido.getNick();
+				ip=paquete_recibido.getIp();
+				mensaje=paquete_recibido.getMensaje();
+
+				areatexto.append("\n" + nick +": "+mensaje+" para "+ip);
+
 			    misocket.close();
 		}
-		} catch(IOException e){
+		} catch(IOException | ClassNotFoundException e){
 			e.printStackTrace();
 		}
+		
 		
 	}
 }

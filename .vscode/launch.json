@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Servidor",
+            "request": "launch",
+            "mainClass": "misockets.Servidor",
+            "projectName": "lab1chat_c5bd9803"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Cliente",
+            "request": "launch",
+            "mainClass": "misockets.Cliente",
+            "projectName": "lab1chat_c5bd9803"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Hola",
             "request": "launch",
             "mainClass": "Hola",
