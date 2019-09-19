@@ -3,8 +3,10 @@ package misockets;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Servidor  {
 
@@ -50,25 +52,34 @@ class MarcoServidor extends JFrame implements Runnable {
 
 
 	public void run(){
-		// System.out.println("Prueba qla buena");
 		try{
 			ServerSocket servidor = new ServerSocket(9999);
 
 			String nick, ip, mensaje;
 
+			ArrayList <String> listaIp=new ArrayList<String>();
+
 			PaqueteEnvio paquete_recibido;
 
 			while(true){
+
 				Socket misocket = servidor.accept();
 
-			    // DataInputStream flujo_entrada = new DataInputStream(misocket.getInputStream());
-				ObjectInputStream paquete_datos=new ObjectInputStream(misocket.getInputStream());		
+
+				// DataInputStream flujo_entrada = new DataInputStream(misocket.getInputStream());
 				// String mensaje_texto = flujo_entrada.readUTF();
-				paquete_recibido=(PaqueteEnvio) paquete_datos.readObject();
 				// areatexto.append("\n" + mensaje_texto);
+
+				ObjectInputStream paquete_datos=new ObjectInputStream(misocket.getInputStream());		
+
+				paquete_recibido=(PaqueteEnvio) paquete_datos.readObject();
+
 				nick=paquete_recibido.getNick();
 				ip=paquete_recibido.getIp();
 				mensaje=paquete_recibido.getMensaje();
+
+			if(!mensaje.equals(" online")){
+
 
 				areatexto.append("\n" + nick +": "+mensaje+" para "+ip);
 				
@@ -80,9 +91,47 @@ class MarcoServidor extends JFrame implements Runnable {
 
 				paqueteReenvio.writeObject(paquete_recibido);
 
+				paqueteReenvio.close();
+
 				enviaDestinatario.close(); 
 
-			    misocket.close();
+				misocket.close();
+				
+			}else{
+			
+				//------Aqui se detecta quien esta online
+
+				InetAddress localizacion=misocket.getInetAddress();
+
+				String IpRemota=localizacion.getHostAddress();
+
+				// System.out.println("Online: " + IpRemota);
+
+				listaIp.add(IpRemota);
+
+				paquete_recibido.setIps(listaIp);
+
+				for(String z:listaIp){
+
+					System.out.println("Array:" +z);
+
+					Socket enviaDestinatario=new Socket(z,9090);
+
+					ObjectOutputStream paqueteReenvio=new ObjectOutputStream(enviaDestinatario.getOutputStream());
+
+					paqueteReenvio.writeObject(paquete_recibido);
+
+					paqueteReenvio.close();
+
+					enviaDestinatario.close(); 
+
+					misocket.close();
+
+				}
+				//------------------------------------------
+			}
+
+
 		}
 		} catch(IOException | ClassNotFoundException e){
 			e.printStackTrace();
