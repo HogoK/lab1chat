@@ -1,8 +1,6 @@
-package misockets;
+package MiSockets;
 
 import javax.swing.*;
-
-import javafx.stage.WindowEvent;
 
 import java.awt.event.*;
 import java.io.IOException;
@@ -57,7 +55,7 @@ class EnvioOnline extends WindowAdapter{
 
 		try{
 
-			Socket misocket=new Socket("192.168.1.84", 9999);
+			Socket misocket=new Socket("192.168.0.3", 9999);
 
 			PaqueteEnvio datos=new PaqueteEnvio();
 
