@@ -31,7 +31,7 @@ Enunciado Laboratorio 1:
 
 - Además, deberá pedir un nombre de usuario o Nick para identificarlo. [TERMINADO]
 
-- Por el lado del servidor, cuando un cliente se conecte se debe mostrar en la consola el detalle de dicho evento: IP y nombre del cliente
+- Por el lado del servidor, cuando un cliente se conecte se debe mostrar en la consola el detalle de dicho evento: IP y nombre del cliente [TERMINADO] (FALTA NOMBRE)
 
 - además de la fecha/hora. [TERMINADO]
 
@@ -40,14 +40,14 @@ Enunciado Laboratorio 1:
 - Cuando un Cliente esté conectado, deberá poder enviar mensajes por la consola los cuales llegarán a todos los otros Clientes. 
 
 - A dichos clientes deberá mostrarse el mensaje en pantalla indicando la fecha/hora y el nombre del usuario que envió el mensaje, 
-además del mensaje en sí. 
+además del mensaje en sí. [TERMINADO]
 
-- En el servidor, deben mostrarse en pantalla de la misma forma, todos los mensajes que viajen por el sistema.
+- En el servidor, deben mostrarse en pantalla de la misma forma, todos los mensajes que viajen por el sistema.[TERMINADO]
 
 - El sistema debe permitir desconectarse con algún menú o combinación de teclas especial (por ejemplo, al escribir “quit” o “salir” 
 u otro mensaje especial). Al desconectarse, en los otros Clientes y en el servidor, debe aparecer una notificación de que el usuario 
 en cuestión se ha desconectado. El Cliente, al ejecutar nuevamente el programa Cliente, deberá poder re-conectarse al chat y realizar 
-todo tal cual como al inicio.
+todo tal cual como al inicio. [TERMINADO] (FALTA MENSAJE DE DESCONEXION)
 
 - Agregar tolerancia a fallos con un segundo servidor de tal forma que cuando se “caiga” el servidor, los clientes deben recibir una 
 notificación de este evento y pedir al usuario la IP y puerto de un segundo servidor (que ya debe estar ejecutándose). Tras esto, 

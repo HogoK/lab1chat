@@ -92,7 +92,7 @@ class MarcoServidor extends JFrame implements Runnable{
 					//***************DTECTA USUARIOS ONLINE***************
 					InetAddress localizacion = misocket.getInetAddress();
 					String IpRemota = localizacion.getHostAddress();
-					///System.out.println("-> Online " + IpRemota);
+					areatexto.append("\n"+ fechaHora + nick + ", ip:"+ IpRemota +" se a unido al chat.");
 					listaIp.add(IpRemota);//Agrega la ip del cliente al arreglo de ips
 					paquete_recibido.setIps(listaIp);
 					
