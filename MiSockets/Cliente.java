@@ -8,7 +8,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.*;
 import java.rmi.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Cliente {
@@ -36,6 +39,7 @@ class MarcoCliente extends JFrame{
 		
 		setBounds(600,300,280,350);
 				
+				
 		LaminaMarcoCliente milamina=new LaminaMarcoCliente();
 		
 		add(milamina);
@@ -43,6 +47,8 @@ class MarcoCliente extends JFrame{
 		setVisible(true);
 		
 		addWindowListener(new EnvioOnline());// Instancia el envio online de conexion de cliente al chat
+		
+		
 		}	
 	
 }
@@ -54,6 +60,8 @@ class EnvioOnline extends WindowAdapter{ // Clase que se encarga de enviar el pa
 			Socket misocket = new Socket("192.168.0.3",9999);// Poner Aqui IP del PC-SERVIDOR
 			PaqueteEnvio datos = new PaqueteEnvio();
 			datos.setMensaje(" Online");
+			
+			
 			ObjectOutputStream paquete_datos = new ObjectOutputStream(misocket.getOutputStream());
 			paquete_datos.writeObject(datos);
 			misocket.close();
@@ -73,7 +81,6 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 	public LaminaMarcoCliente(){
 		
 		String nick_usuario=JOptionPane.showInputDialog("Nick: ");
-		
 		
 		
 		JLabel n_nick = new JLabel("Nick: ");
@@ -172,11 +179,17 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 				cliente = servidor_cliente.accept();
 				ObjectInputStream flujoentrada = new ObjectInputStream(cliente.getInputStream());
 				paqueteRecibido = (PaqueteEnvio) flujoentrada.readObject();
+				//******************* DEFINE LA HORA PARA LOS MENSAJES**************************
+				DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+				Date date = new Date();
+				//System.out.println("Hora actual: " + dateFormat.format(date));
+				//******************************************************************************
 				
 				if(!paqueteRecibido.getMensaje().equals(" Online")) {
-					campochat.append("\n" + paqueteRecibido.getNick() + ": " + paqueteRecibido.getMensaje());
+					campochat.append("\n[" + dateFormat.format(date) + "] " + paqueteRecibido.getNick() + ": " + paqueteRecibido.getMensaje());
 				}else {
-					campochat.append("\n" + paqueteRecibido.getIps());
+					// campochat.append("\n" + paqueteRecibido.getNick() + "(ip: " + paqueteRecibido.getIps() + ") se a unido al chat.");
+					campochat.append("\n[" + dateFormat.format(date) + "] " + paqueteRecibido.getNick() + ", ip: " + paqueteRecibido.getIps() + " se a unido al chat.");
 					ArrayList <String> IpsMenu = new ArrayList<String>();
 					IpsMenu = paqueteRecibido.getIps();
 					ip.removeAllItems();
