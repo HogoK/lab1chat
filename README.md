@@ -33,7 +33,7 @@ Enunciado Laboratorio 1:
 
 - Por el lado del servidor, cuando un cliente se conecte se debe mostrar en la consola el detalle de dicho evento: IP y nombre del cliente
 
-- además de la fecha/hora. 
+- además de la fecha/hora. [TERMINADO]
 
 - En los otros Clientes, debe aparecer la misma notificación de que el usuario en cuestión se ha conectado. [TERMINADO]
 
