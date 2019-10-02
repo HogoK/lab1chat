@@ -6,6 +6,8 @@ import java.awt.*;
 import java.io.IOException;
 // import java.net.ServerSocket;
 import java.net.*;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.io.*;
 
@@ -67,8 +69,19 @@ class MarcoServidor extends JFrame implements Runnable{
 				ip = paquete_recibido.getIp();
 				mensaje = paquete_recibido.getMensaje();
 				
+				//******************* DEFINE LA FECHA/HORA PARA LOS MENSAJES**************************
+				LocalDateTime locaDate = LocalDateTime.now();
+				int dia  = locaDate.getDayOfMonth();
+				Month mes  = locaDate.getMonth();
+				int año  = locaDate.getYear();
+				int hora  = locaDate.getHour();
+				int minuto = locaDate.getMinute();
+				int segundo = locaDate.getSecond();
+				String fechaHora = "[" + dia  + "/"+ mes +"/"+ año +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
+				//******************************************************************************
+				
 				if(!mensaje.equals(" Online")) {
-				areatexto.append("\n" + nick + ": " + mensaje + " para "+ ip);
+				areatexto.append("\n"+ fechaHora + nick + ": " + mensaje + " para "+ ip);
 				Socket enviaDestinatario = new Socket(ip,9090);
 				ObjectOutputStream paqueteReenvio = new ObjectOutputStream(enviaDestinatario.getOutputStream());
 				paqueteReenvio.writeObject(paquete_recibido);

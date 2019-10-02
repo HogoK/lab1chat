@@ -10,6 +10,8 @@ import java.net.*;
 import java.rmi.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -130,7 +132,17 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 	private class EnviaTexto implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			campochat.append("\n" + "Yo: " + campo1.getText());
+			//******************* DEFINE LA FECHA/HORA PARA LOS MENSAJES**************************
+			LocalDateTime locaDate = LocalDateTime.now();
+			int dia  = locaDate.getDayOfMonth();
+			Month mes  = locaDate.getMonth();
+			int año  = locaDate.getYear();
+			int hora  = locaDate.getHour();
+			int minuto = locaDate.getMinute();
+			int segundo = locaDate.getSecond();
+			String fechaHora = "[" + dia  + "/"+ mes +"/"+ año +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
+			//******************************************************************************
+			campochat.append("\n"+ fechaHora + "Yo: " + campo1.getText());
 
 			try{
 				Socket misocket = new Socket("192.168.0.3",9999);//Poner aqui la IP del PC-SERVIDOR
@@ -179,17 +191,22 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 				cliente = servidor_cliente.accept();
 				ObjectInputStream flujoentrada = new ObjectInputStream(cliente.getInputStream());
 				paqueteRecibido = (PaqueteEnvio) flujoentrada.readObject();
-				//******************* DEFINE LA HORA PARA LOS MENSAJES**************************
-				DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-				Date date = new Date();
-				//System.out.println("Hora actual: " + dateFormat.format(date));
+				//******************* DEFINE LA FECHA/HORA PARA LOS MENSAJES**************************
+				LocalDateTime locaDate = LocalDateTime.now();
+				int dia  = locaDate.getDayOfMonth();
+				Month mes  = locaDate.getMonth();
+				int año  = locaDate.getYear();
+				int hora  = locaDate.getHour();
+				int minuto = locaDate.getMinute();
+				int segundo = locaDate.getSecond();
+				String fechaHora = "[" + dia  + "/"+ mes +"/"+ año +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
 				//******************************************************************************
 				
 				if(!paqueteRecibido.getMensaje().equals(" Online")) {
-					campochat.append("\n[" + dateFormat.format(date) + "] " + paqueteRecibido.getNick() + ": " + paqueteRecibido.getMensaje());
+					campochat.append("\n" + fechaHora + paqueteRecibido.getNick() + ": " + paqueteRecibido.getMensaje());
 				}else {
 					// campochat.append("\n" + paqueteRecibido.getNick() + "(ip: " + paqueteRecibido.getIps() + ") se a unido al chat.");
-					campochat.append("\n[" + dateFormat.format(date) + "] " + paqueteRecibido.getNick() + ", ip: " + paqueteRecibido.getIps() + " se a unido al chat.");
+					campochat.append("\n" + fechaHora + paqueteRecibido.getNick() + ", ip: " + paqueteRecibido.getIps() + " se a unido al chat.");
 					ArrayList <String> IpsMenu = new ArrayList<String>();
 					IpsMenu = paqueteRecibido.getIps();
 					ip.removeAllItems();
