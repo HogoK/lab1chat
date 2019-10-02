@@ -1,4 +1,4 @@
-package MiSockets;
+package misockets;
 
 import javax.swing.*;
 
@@ -29,10 +29,11 @@ class MarcoServidor extends JFrame implements Runnable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	public MarcoServidor(){
 		
-		setBounds(1200,300,280,350);				
-			
+		setBounds(1200,300,280,350);
+		
 		JPanel milamina= new JPanel();
 		
 		milamina.setLayout(new BorderLayout());
@@ -40,7 +41,7 @@ class MarcoServidor extends JFrame implements Runnable{
 		areatexto=new JTextArea();
 		
 		milamina.add(areatexto,BorderLayout.CENTER);
-		
+
 		add(milamina);
 		
 		setVisible(true);
@@ -51,11 +52,11 @@ class MarcoServidor extends JFrame implements Runnable{
 		
 		}
 	
-	
+	int s_socket = Integer.parseInt(JOptionPane.showInputDialog("Ingrese puerto del servidor: "));
 
 	public void run(){
 		try{
-			ServerSocket servidor = new ServerSocket(9999);
+			ServerSocket servidor = new ServerSocket(s_socket);
 			String nick, ip, mensaje;
 			ArrayList <String> listaIp = new ArrayList<String>();// Arreglo que guarda las ips de los clientes conectados al chat
 			PaqueteEnvio paquete_recibido;
@@ -73,11 +74,11 @@ class MarcoServidor extends JFrame implements Runnable{
 				LocalDateTime locaDate = LocalDateTime.now();
 				int dia  = locaDate.getDayOfMonth();
 				Month mes  = locaDate.getMonth();
-				int año  = locaDate.getYear();
+				int aÃ±o  = locaDate.getYear();
 				int hora  = locaDate.getHour();
 				int minuto = locaDate.getMinute();
 				int segundo = locaDate.getSecond();
-				String fechaHora = "[" + dia  + "/"+ mes +"/"+ año +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
+				String fechaHora = "[" + dia  + "/"+ mes +"/"+ aÃ±o +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
 				//******************************************************************************
 				
 				if(!mensaje.equals(" Online")) {

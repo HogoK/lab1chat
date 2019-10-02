@@ -4,6 +4,27 @@
             "type": "java",
             "name": "CodeLens (Launch) - Servidor",
             "request": "launch",
+            "mainClass": "misockets.Servidor",
+            "projectName": "lab1chat"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Cliente",
+            "request": "launch",
+            "mainClass": "misockets.Cliente",
+            "projectName": "lab1chat"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Servidor",
+            "request": "launch",
+            "mainClass": "MiSockets.Servidor",
+            "projectName": "lab1chat"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Servidor",
+            "request": "launch",
             "mainClass": "MiSockets.Servidor",
             "projectName": "lab1chat_7135e519"
         },
