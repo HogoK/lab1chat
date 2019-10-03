@@ -1,7 +1,6 @@
 package misockets;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.io.IOException;
 // import java.net.ServerSocket;
@@ -10,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.io.*;
+
 
 public class Servidor  {
 
@@ -52,14 +52,18 @@ class MarcoServidor extends JFrame implements Runnable{
 		
 		}
 	
+
 	int s_socket = Integer.parseInt(JOptionPane.showInputDialog("Ingrese puerto del servidor: "));
 
 	public void run(){
 		try{
+			areatexto.append(".:Servidor en linea:."+"\n" + "IP del Servidor: " + InetAddress.getLocalHost().getHostAddress());
+			areatexto.append("\n" + "Puerto del Servidor: " + s_socket);
 			ServerSocket servidor = new ServerSocket(s_socket);
 			String nick, ip, mensaje;
 			ArrayList <String> listaIp = new ArrayList<String>();// Arreglo que guarda las ips de los clientes conectados al chat
 			PaqueteEnvio paquete_recibido;
+
 			while(true){
 				Socket misocket = servidor.accept();
 				
@@ -116,4 +120,5 @@ class MarcoServidor extends JFrame implements Runnable{
 
 	}
 	private	JTextArea areatexto;
+	
 }

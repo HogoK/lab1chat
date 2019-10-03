@@ -16,7 +16,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
+
+
 public class Cliente {
+
+	public static int s_socket= Integer.parseInt(JOptionPane.showInputDialog("Ingrese el puerto del servidor al cual desea conectarse: "));
+	public static String i_ip= JOptionPane.showInputDialog("Ingrese Ip de este servidor: ");
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -26,9 +32,7 @@ public class Cliente {
 		mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
-
 }
-
 
 class MarcoCliente extends JFrame{
 	
@@ -42,7 +46,6 @@ class MarcoCliente extends JFrame{
 		setBounds(600,300,280,350);
 				
 		LaminaMarcoCliente milamina=new LaminaMarcoCliente();
-		
 
 		add(milamina);
 		
@@ -55,11 +58,12 @@ class MarcoCliente extends JFrame{
 	
 }
 
-
 class EnvioOnline extends WindowAdapter{ // Clase que se encarga de enviar el paquete de informacion de conexion nueva al chat
 	public void windowOpened(WindowEvent e) {
 		try {
-			Socket misocket = new Socket("127.0.0.1",9999);// Poner Aqui IP del PC-SERVIDOR
+			Socket misocket = new Socket(Cliente.i_ip, Cliente.s_socket);// Poner Aqui IP del PC-SERVIDOR
+			System.out.println(Cliente.s_socket);//asklhduasijhdkjashdkjashdkjashkdjhaskjhdaskjdhakjsdhkasjdhkashdjkhaskjdhkajshdsa
+
 			PaqueteEnvio datos = new PaqueteEnvio();
 			datos.setMensaje(" Online");
 			
@@ -93,6 +97,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 		nick.setText(nick_usuario);
 
 		add(nick);
+
 	
 		JLabel texto=new JLabel("Online: ");
 		
@@ -100,10 +105,6 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 		 
 		ip = new JComboBox<String>();
 		
-		//ip.addItem("192.168.0.3");
-		//ip.addItem("192.168.0.5");
-		//ip.addItem("192.168.0.8");
-
 		add(ip);
 
 		campochat = new JTextArea(15,20);
@@ -127,6 +128,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 		mihilo.start();
 		
 	}
+
 	
 	private class EnviaTexto implements ActionListener {
 		@Override
@@ -144,7 +146,8 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 			campochat.append("\n"+ fechaHora + "Yo: " + campo1.getText());
 
 			try{
-				Socket misocket = new Socket("127.0.0.1",9999);//Poner aqui la IP del PC-SERVIDOR
+				Socket misocket = new Socket(Cliente.i_ip,Cliente.s_socket);//Poner aqui la IP del PC-SERVIDOR
+				System.out.println(Cliente.s_socket);//asklhduasijhdkjashdkjashdkjashkdjhaskjhdaskjdhakjsdhkasjdhkashdjkhaskjdhkajshdsa
 				PaqueteEnvio datos = new PaqueteEnvio();
 				datos.setNick(nick.getText());
 				datos.setIp(ip.getSelectedItem().toString());
