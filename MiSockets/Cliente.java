@@ -61,8 +61,7 @@ class MarcoCliente extends JFrame{
 class EnvioOnline extends WindowAdapter{ // Clase que se encarga de enviar el paquete de informacion de conexion nueva al chat
 	public void windowOpened(WindowEvent e) {
 		try {
-			Socket misocket = new Socket(Cliente.i_ip, Cliente.s_socket);// Poner Aqui IP del PC-SERVIDOR
-			System.out.println(Cliente.s_socket);//asklhduasijhdkjashdkjashdkjashkdjhaskjhdaskjdhakjsdhkasjdhkashdjkhaskjdhkajshdsa
+			Socket misocket = new Socket(Cliente.i_ip, Cliente.s_socket);//IP del PC-SERVIDOR
 
 			PaqueteEnvio datos = new PaqueteEnvio();
 			datos.setMensaje(" Online");
@@ -146,8 +145,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 			campochat.append("\n"+ fechaHora + "Yo: " + campo1.getText());
 
 			try{
-				Socket misocket = new Socket(Cliente.i_ip,Cliente.s_socket);//Poner aqui la IP del PC-SERVIDOR
-				System.out.println(Cliente.s_socket);//asklhduasijhdkjashdkjashdkjashkdjhaskjhdaskjdhakjsdhkasjdhkashdjkhaskjdhkajshdsa
+				Socket misocket = new Socket(Cliente.i_ip,Cliente.s_socket);//IP del PC-SERVIDOR
 				PaqueteEnvio datos = new PaqueteEnvio();
 				datos.setNick(nick.getText());
 				datos.setIp(ip.getSelectedItem().toString());
