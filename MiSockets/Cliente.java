@@ -1,4 +1,4 @@
-package misockets;
+package MiSockets;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -129,6 +129,8 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 	}
 
 	
+	
+	
 	private class EnviaTexto implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -136,11 +138,11 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 			LocalDateTime locaDate = LocalDateTime.now();
 			int dia  = locaDate.getDayOfMonth();
 			Month mes  = locaDate.getMonth();
-			int año  = locaDate.getYear();
+			int anno  = locaDate.getYear();
 			int hora  = locaDate.getHour();
 			int minuto = locaDate.getMinute();
 			int segundo = locaDate.getSecond();
-			String fechaHora = "[" + dia  + "/"+ mes +"/"+ año +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
+			String fechaHora = "[" + dia  + "/"+ mes +"/"+ anno +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
 			//******************************************************************************
 			campochat.append("\n"+ fechaHora + "Yo: " + campo1.getText());
 
@@ -195,11 +197,11 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 				LocalDateTime locaDate = LocalDateTime.now();
 				int dia  = locaDate.getDayOfMonth();
 				Month mes  = locaDate.getMonth();
-				int año  = locaDate.getYear();
+				int anno  = locaDate.getYear();
 				int hora  = locaDate.getHour();
 				int minuto = locaDate.getMinute();
 				int segundo = locaDate.getSecond();
-				String fechaHora = "[" + dia  + "/"+ mes +"/"+ año +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
+				String fechaHora = "[" + dia  + "/"+ mes +"/"+ anno +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
 				//******************************************************************************
 				
 				if(!paqueteRecibido.getMensaje().equals(" Online")) {

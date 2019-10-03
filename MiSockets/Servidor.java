@@ -1,4 +1,4 @@
-package misockets;
+package MiSockets;
 
 import javax.swing.*;
 import java.awt.*;
@@ -78,11 +78,11 @@ class MarcoServidor extends JFrame implements Runnable{
 				LocalDateTime locaDate = LocalDateTime.now();
 				int dia  = locaDate.getDayOfMonth();
 				Month mes  = locaDate.getMonth();
-				int año  = locaDate.getYear();
+				int anno  = locaDate.getYear();
 				int hora  = locaDate.getHour();
 				int minuto = locaDate.getMinute();
 				int segundo = locaDate.getSecond();
-				String fechaHora = "[" + dia  + "/"+ mes +"/"+ año +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
+				String fechaHora = "[" + dia  + "/"+ mes +"/"+ anno +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
 				//******************************************************************************
 				
 				if(!mensaje.equals(" Online")) {
