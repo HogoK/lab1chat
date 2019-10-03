@@ -120,10 +120,10 @@ class MarcoServidor extends JFrame implements Runnable{
 				}else{
 					InetAddress localizacion = misocket.getInetAddress();
 					String IpRemota = localizacion.getHostAddress();
-					areatexto.append("\n"+ fechaHora + nick + ", ip: "+ IpRemota +" se a unido al chat.");
+					areatexto.append("\n"+ fechaHora + nick + ", ip: "+ IpRemota +" se a desconectado del chat.");
 
 
-					listaIp.remove(IpRemota);//Agrega la ip del cliente al arreglo de ips
+					listaIp.remove(IpRemota);//Elimina la ip del cliente del arreglo de ips
 					
 					paquete_recibido.setIps(listaIp);
 					
