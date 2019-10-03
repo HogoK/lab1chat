@@ -85,15 +85,17 @@ class MarcoServidor extends JFrame implements Runnable{
 				String fechaHora = "[" + dia  + "/"+ mes +"/"+ anno +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
 				//******************************************************************************
 				
-				if(!mensaje.equals(" Online")) {
-				areatexto.append("\n"+ fechaHora + nick + ": " + mensaje + " para "+ ip);
-				Socket enviaDestinatario = new Socket(ip,9090);
-				ObjectOutputStream paqueteReenvio = new ObjectOutputStream(enviaDestinatario.getOutputStream());
-				paqueteReenvio.writeObject(paquete_recibido);
-				paqueteReenvio.close();
-				enviaDestinatario.close();
-			    misocket.close();
+				if(!mensaje.equals(" Online") && !(InetAddress.getLocalHost().getHostAddress()==ip)) {
+					
+					areatexto.append("\n"+ fechaHora + nick + ": " + mensaje + " para ");//+ x);
+					Socket enviaDestinatario = new Socket(ip,9090);
+					ObjectOutputStream paqueteReenvio = new ObjectOutputStream(enviaDestinatario.getOutputStream());
+					paqueteReenvio.writeObject(paquete_recibido);
+					paqueteReenvio.close();
+					enviaDestinatario.close();
+					misocket.close();
 				}else {
+					
 					//***************DTECTA USUARIOS ONLINE***************
 					InetAddress localizacion = misocket.getInetAddress();
 					String IpRemota = localizacion.getHostAddress();
@@ -102,12 +104,16 @@ class MarcoServidor extends JFrame implements Runnable{
 					paquete_recibido.setIps(listaIp);
 					
 					for (String z:listaIp) {
-						Socket enviaDestinatario = new Socket(z,9090);
-						ObjectOutputStream paqueteReenvio = new ObjectOutputStream(enviaDestinatario.getOutputStream());
-						paqueteReenvio.writeObject(paquete_recibido);
-						paqueteReenvio.close();
-						enviaDestinatario.close();
-					    misocket.close();
+						if(mensaje.equals(" Online")) {
+							System.out.println("Item at " + z);
+							//System.out.println("Nick " +nick.getText());
+							Socket enviaDestinatario = new Socket(z,9090);
+							ObjectOutputStream paqueteReenvio = new ObjectOutputStream(enviaDestinatario.getOutputStream());
+							paqueteReenvio.writeObject(paquete_recibido);
+							paqueteReenvio.close();
+							enviaDestinatario.close();
+						    misocket.close();
+						}
 					}
 					//****************************************************
 				}

@@ -144,21 +144,26 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 			int segundo = locaDate.getSecond();
 			String fechaHora = "[" + dia  + "/"+ mes +"/"+ anno +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
 			//******************************************************************************
-			campochat.append("\n"+ fechaHora + "Yo: " + campo1.getText());
+			//campochat.append("\n"+ fechaHora + "Yo: " + campo1.getText());
 
 			try{
-				Socket misocket = new Socket(Cliente.i_ip,Cliente.s_socket);//IP del PC-SERVIDOR
-				PaqueteEnvio datos = new PaqueteEnvio();
-				datos.setNick(nick.getText());
-				datos.setIp(ip.getSelectedItem().toString());
-				datos.setMensaje(campo1.getText());
-				ObjectOutputStream paquete_datos = new ObjectOutputStream(misocket.getOutputStream());
-				paquete_datos.writeObject(datos);
-				misocket.close();
-
-				// DataOutputStream flujo_salida = new DataOutputStream(misocket.getOutputStream());
-				// flujo_salida.writeUTF(campo1.getText());
-				// flujo_salida.close();
+				int size = ip.getItemCount();
+				for (int i = 0; i < size; i++) {
+					if(InetAddress.getLocalHost().getHostAddress().toString() != ip.getItemAt(i).toString()) {
+						
+						Socket misocket = new Socket(Cliente.i_ip,Cliente.s_socket);//IP del PC-SERVIDOR
+						PaqueteEnvio datos = new PaqueteEnvio();
+						datos.setNick(nick.getText());
+						datos.setIp(ip.getItemAt(i).toString());
+						//datos.setIp(ip.getSelectedItem().toString());
+						datos.setMensaje(campo1.getText());
+						ObjectOutputStream paquete_datos = new ObjectOutputStream(misocket.getOutputStream());
+						paquete_datos.writeObject(datos);
+						misocket.close();
+					}
+					
+				}
+				
 			} catch (UnknownHostException e1){
 				e1.printStackTrace();
 			} catch(IOException e1){
@@ -204,17 +209,20 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 				String fechaHora = "[" + dia  + "/"+ mes +"/"+ anno +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
 				//******************************************************************************
 				
-				if(!paqueteRecibido.getMensaje().equals(" Online")) {
+				if(!paqueteRecibido.getMensaje().equals(" Online") && paqueteRecibido.getNick()!= nick.getText()) {
 					campochat.append("\n" + fechaHora + paqueteRecibido.getNick() + ": " + paqueteRecibido.getMensaje());
 				}else {
-					// campochat.append("\n" + paqueteRecibido.getNick() + "(ip: " + paqueteRecibido.getIps() + ") se a unido al chat.");
-					campochat.append("\n" + fechaHora + paqueteRecibido.getNick() + ", ip: " + paqueteRecibido.getIps() + " se a unido al chat.");
-					ArrayList <String> IpsMenu = new ArrayList<String>();
-					IpsMenu = paqueteRecibido.getIps();
-					ip.removeAllItems();
-					for(String z:IpsMenu){
-						ip.addItem(z);
+					if(paqueteRecibido.getMensaje().equals(" Online")) {
+						// campochat.append("\n" + paqueteRecibido.getNick() + "(ip: " + paqueteRecibido.getIps() + ") se a unido al chat.");
+						campochat.append("\n" + fechaHora + paqueteRecibido.getNick() + ", ip: " + paqueteRecibido.getIp() + " se a unido al chat.");
+						ArrayList <String> IpsMenu = new ArrayList<String>();
+						IpsMenu = paqueteRecibido.getIps();
+						ip.removeAllItems();
+						for(String z:IpsMenu){
+							ip.addItem(z);
+						}
 					}
+					
 				}
 				
 				
