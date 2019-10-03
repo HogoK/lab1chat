@@ -1,4 +1,4 @@
-package misockets;
+package MiSockets;
 
 import javax.swing.*;
 import java.awt.*;
