@@ -1,4 +1,4 @@
-package MiSockets;
+package misockets;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +57,7 @@ class MarcoServidor extends JFrame implements Runnable{
 
 	public void run(){
 		try{
-			areatexto.append(".:Servidor en linea:."+"\n" + "IP del Servidor: " + InetAddress.getLocalHost().getHostAddress());
+			areatexto.append(".:Servidor con Conexion:."+"\n" + "IP del Servidor: " + InetAddress.getLocalHost().getHostAddress());
 			areatexto.append("\n" + "Puerto del Servidor: " + s_socket);
 			ServerSocket servidor = new ServerSocket(s_socket);
 			String nick, ip, mensaje;
@@ -66,7 +66,6 @@ class MarcoServidor extends JFrame implements Runnable{
 
 			while(true){
 				Socket misocket = servidor.accept();
-				
 				
 				ObjectInputStream paquete_datos = new ObjectInputStream(misocket.getInputStream());
 				paquete_recibido = (PaqueteEnvio) paquete_datos.readObject();
@@ -85,6 +84,7 @@ class MarcoServidor extends JFrame implements Runnable{
 				String fechaHora = "[" + dia  + "/"+ mes +"/"+ anno +"]["+ hora  + ":"+ minuto +":"+segundo+"] "; 
 				//******************************************************************************
 				
+    
 				if(!mensaje.equals(" Online")) {
 				areatexto.append("\n"+ fechaHora + nick + ": " + mensaje + " para "+ ip);
 				Socket enviaDestinatario = new Socket(ip,9090);
@@ -94,11 +94,15 @@ class MarcoServidor extends JFrame implements Runnable{
 				enviaDestinatario.close();
 			    misocket.close();
 				}else {
-					//***************DTECTA USUARIOS ONLINE***************
+					//***************DETECTA USUARIOS ONLINE***************
+					
 					InetAddress localizacion = misocket.getInetAddress();
 					String IpRemota = localizacion.getHostAddress();
-					areatexto.append("\n"+ fechaHora + nick + ", ip:"+ IpRemota +" se a unido al chat.");
+					areatexto.append("\n"+ fechaHora + nick + ", ip: "+ IpRemota +" se a unido al chat.");
+
+
 					listaIp.add(IpRemota);//Agrega la ip del cliente al arreglo de ips
+					
 					paquete_recibido.setIps(listaIp);
 					
 					for (String z:listaIp) {
@@ -107,11 +111,13 @@ class MarcoServidor extends JFrame implements Runnable{
 						paqueteReenvio.writeObject(paquete_recibido);
 						paqueteReenvio.close();
 						enviaDestinatario.close();
-					    misocket.close();
-					}
+						misocket.close();	
+				}
 					//****************************************************
 				}
-			}
+			
+				}
+			      
 			
 		} catch(IOException | ClassNotFoundException e){
 			e.printStackTrace();
@@ -122,3 +128,5 @@ class MarcoServidor extends JFrame implements Runnable{
 	private	JTextArea areatexto;
 	
 }
+
+

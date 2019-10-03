@@ -1,4 +1,4 @@
-package MiSockets;
+package misockets;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -66,7 +66,6 @@ class EnvioOnline extends WindowAdapter{ // Clase que se encarga de enviar el pa
 			PaqueteEnvio datos = new PaqueteEnvio();
 			datos.setMensaje(" Online");
 			
-			
 			ObjectOutputStream paquete_datos = new ObjectOutputStream(misocket.getOutputStream());
 			paquete_datos.writeObject(datos);
 			misocket.close();
@@ -84,7 +83,7 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 	private static final long serialVersionUID = 1L;
 
 	public LaminaMarcoCliente(){
-		
+ 		
 		String nick_usuario=JOptionPane.showInputDialog("Nick: ");
 		
 		JLabel n_nick = new JLabel("Nick: ");
@@ -96,7 +95,6 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 		nick.setText(nick_usuario);
 
 		add(nick);
-
 	
 		JLabel texto=new JLabel("Online: ");
 		
@@ -156,13 +154,11 @@ class LaminaMarcoCliente extends JPanel implements Runnable{
 				paquete_datos.writeObject(datos);
 				misocket.close();
 
-				// DataOutputStream flujo_salida = new DataOutputStream(misocket.getOutputStream());
-				// flujo_salida.writeUTF(campo1.getText());
-				// flujo_salida.close();
 			} catch (UnknownHostException e1){
 				e1.printStackTrace();
 			} catch(IOException e1){
 				System.out.println(e1.getMessage());
+
 			}
 
 			
